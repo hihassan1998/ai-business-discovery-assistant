@@ -5,6 +5,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 import { ScopeEstimate } from '@/types';
 
+// Register required elements for Chart.js
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 interface EffortChartProps {
