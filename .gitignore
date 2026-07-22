@@ -1,0 +1,2 @@
+# Ignore all files starting with .env (e.g., .env, .env.local, .env.development)
+.env*
