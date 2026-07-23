@@ -86,6 +86,28 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Footer containing prototype info, portfolio, LinkedIn and source code */}
+      <footer className="bg-[#2F1620] text-white py-12 px-6 border-t-2 border-[#9B2740]">
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="flex items-center space-x-2">
+            <span className="text-lg font-black text-[#A68C41]">SAGADISCOVERY</span>
+            <span className="text-[10px] text-gray-400 font-semibold border-l border-gray-500 pl-2">
+              Prototype &copy; 2026
+            </span>
+          </div>
+          <div className="text-xs text-gray-300 font-mono text-center md:text-left max-w-md leading-relaxed">
+            Prototype developed by <span className="text-[#A68C41] font-bold">Hassan Hussain</span>. Contact me at <a href="mailto:hassanihussain1998@gmail.com" className="underline hover:text-[#9B2740] transition-colors">hassanihussain1998@gmail.com</a>.
+          </div>
+          <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-[#A68C41] font-mono font-bold uppercase tracking-wider">
+            <a href="https://www.linkedin.com/in/hassan-hussain-3b840429a/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">LinkedIn</a>
+            <span className="text-gray-600">|</span>
+            <a href="https://hihassan1998.github.io/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Portfolio</a>
+            <span className="text-gray-600">|</span>
+            <a href="https://github.com/hihassan1998/ai-business-discovery-assistant" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Source Code</a>
+          </div>
+        </div>
+      </footer>
     </main>
   );
 }
