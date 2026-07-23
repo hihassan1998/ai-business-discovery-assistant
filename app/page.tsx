@@ -33,7 +33,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto flex justify-between items-center">
           <div className="flex items-center space-x-2">
             <span className="text-xl font-black text-[#A68C41] tracking-wider">
-              CONSID
+              SagaDiscovery
             </span>
             <span className="text-xs text-gray-300 font-semibold border-l border-gray-500 pl-2">
               SagaDiscovery
