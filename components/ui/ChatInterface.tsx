@@ -56,7 +56,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
       const response = await fetch('/api/generate-report', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: updatedMessages, mode: 'chat' }),
+        body: JSON.stringify({ messages: updatedMessages, mode: 'chat', language }),
       });
 
       if (!response.ok) {

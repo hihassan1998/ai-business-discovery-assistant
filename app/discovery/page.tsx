@@ -64,7 +64,7 @@ export default function DiscoveryPage() {
       const response = await fetch('/api/generate-report', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages, mode: 'report' }),
+        body: JSON.stringify({ messages, mode: 'report', language }),
       });
 
       if (!response.ok) {

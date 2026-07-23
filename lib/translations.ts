@@ -20,6 +20,8 @@ export const translations = {
     fixQuote: 'SagaDiscovery fungerar som en neutral AI-assistent som överbryggar detta gap. Den genomför ett strukturerat samtal med intressenten och översätter sedan deras svar till tekniska krav, user stories och projektestimat som utvecklare kan agera på.',
     aiTitle: 'Varför AI är rätt verktyg',
     aiQuote: 'Detta är ett icke-deterministiskt problem. Varje projekt, intressent och domän är unik. Generativ AI är unikt lämpad för att hantera denna variation — den kan anpassa sina frågor till alla branscher, tolka tvetydiga svar och generera strukturerad data från ostrukturerade samtal.',
+    ctaHeader: 'Redo att starta din Discovery?',
+    ctaText: 'Upplev det automatiserade arbetsflödet. Skapa användarberättelser och tekniska arkitekturkrav direkt.',
 
     // Discovery Page
     sessionHeader: 'AI Discovery-session',
@@ -48,6 +50,12 @@ export const translations = {
     addPainPoint: '+ Lägg till smärtpunkt',
     addRequirement: '+ Lägg till krav',
     addStory: '+ Lägg till story',
+
+    // Footer
+    developedBy: 'Prototyp utvecklad av',
+    contactMe: 'Kontakta mig på',
+    sourceCode: 'Källkod',
+    portfolio: 'Portfolio',
   },
   en: {
     // Navigation / Header
@@ -70,6 +78,8 @@ export const translations = {
     fixQuote: 'SagaDiscovery acts as a neutral AI assistant that bridges this gap. It conducts a structured discovery conversation with the stakeholder, then translates their responses into technical requirements, user stories, and project estimates that developers can act on.',
     aiTitle: 'Why AI Is the Right Tool',
     aiQuote: 'This is a non-deterministic problem. Every project, stakeholder, and domain is different. Generative AI is uniquely suited to handle this variability — it can adapt its questions to any industry, interpret ambiguous responses, and generate structured output from unstructured conversation.',
+    ctaHeader: 'Ready to Begin Discovery?',
+    ctaText: 'Experience the automated workflow. Convert user stories and technical stack requirements instantly.',
 
     // Discovery Page
     sessionHeader: 'AI Discovery Session',
@@ -98,6 +108,12 @@ export const translations = {
     addPainPoint: '+ Add Pain Point',
     addRequirement: '+ Add Requirement',
     addStory: '+ Add Story',
+
+    // Footer
+    developedBy: 'Prototype developed by',
+    contactMe: 'Contact me at',
+    sourceCode: 'Source Code',
+    portfolio: 'Portfolio',
   },
 };
 

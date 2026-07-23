@@ -10,7 +10,7 @@ export const maxDuration = 30;
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { messages, mode = 'report' } = body;
+    const { messages, mode = 'report', language = 'sv' } = body;
 
     // --- Guard Rail 1: Validate input ---
     if (!messages || messages.length < 1) {
@@ -30,15 +30,17 @@ export async function POST(req: NextRequest) {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 25000);
 
+    const targetLangLabel = language === 'sv' ? 'Swedish (svenska)' : 'English (engelska)';
+
     if (mode === 'chat') {
-      // Chat mode: returns the next question dynamically matching user's language
+      // Chat mode: returns the next question dynamically matching target language
       const response = await openai.chat.completions.create(
         {
           model: 'gpt-4o-mini',
           messages: [
             {
               role: 'system',
-              content: DISCOVERY_SYSTEM_PROMPT,
+              content: `${DISCOVERY_SYSTEM_PROMPT}\n\nCRITICAL: Respond in ${targetLangLabel}.`,
             },
             ...messages.map((m: any) => ({
               role: m.role,
@@ -54,7 +56,7 @@ export async function POST(req: NextRequest) {
       clearTimeout(timeoutId);
       return NextResponse.json({ reply: response.choices[0].message.content || '' });
     } else {
-      // Report mode: parses conversation and generates structured JSON project brief matching user's language
+      // Report mode: parses conversation and generates structured JSON project brief matching target language
       const formattedTranscript = messages
         .map((m: any) => `${m.role === 'user' ? 'Customer (User)' : 'Consultant (AI)'}: ${m.content}`)
         .join('\n');
@@ -65,7 +67,7 @@ export async function POST(req: NextRequest) {
           messages: [
             {
               role: 'system',
-              content: REPORT_SYSTEM_PROMPT,
+              content: `${REPORT_SYSTEM_PROMPT}\n\nCRITICAL: You MUST write all fields of the JSON report in the language: ${targetLangLabel}.`,
             },
             {
               role: 'user',

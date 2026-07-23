@@ -5,6 +5,7 @@ import { LandingHero } from '@/components/ui/LandingHero';
 import Link from 'next/link';
 import { useLanguage } from '@/context/LanguageContext';
 import { translations } from '@/lib/translations';
+import { LanguageToggle } from '@/components/ui/LanguageToggle';
 
 // Home represents the primary landing page showcasing the 3 core explanations of SagaDiscovery.
 export default function Home() {
@@ -37,6 +38,24 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-[#F3F0F1] text-[#1E293B] font-sans">
+      {/* Header / Navbar */}
+      <nav className="bg-[#40252F] text-white py-4 px-6 border-b border-[#9B2740]/30 sticky top-0 z-40 shadow-md">
+        <div className="max-w-6xl mx-auto flex justify-between items-center">
+          <div className="flex items-center space-x-4">
+            <span className="text-xl font-black text-[#A68C41] tracking-wider">
+              SAGADISCOVERY
+            </span>
+            <LanguageToggle />
+          </div>
+          <Link
+            href="/discovery"
+            className="bg-[#9B2740] hover:bg-[#A68C41] text-white text-xs font-bold px-5 py-2.5 rounded-full transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg"
+          >
+            {t.launchAssistant}
+          </Link>
+        </div>
+      </nav>
+
       {/* LandingHero Component */}
       <LandingHero />
 
@@ -71,10 +90,10 @@ export default function Home() {
       <section className="bg-[#40252F] text-white py-16 border-t-4 border-[#A68C41]">
         <div className="max-w-4xl mx-auto text-center px-6 space-y-6">
           <h2 className="text-2xl md:text-3xl font-black uppercase tracking-wider">
-            Ready to Begin Discovery?
+            {t.ctaHeader}
           </h2>
           <p className="text-gray-300 font-mono text-sm max-w-xl mx-auto">
-            Experience the automated workflow. Convert user stories and technical stack requirements instantly.
+            {t.ctaText}
           </p>
           <div className="pt-2">
             <Link
@@ -97,14 +116,14 @@ export default function Home() {
             </span>
           </div>
           <div className="text-xs text-gray-300 font-mono text-center md:text-left max-w-md leading-relaxed">
-            Prototype developed by <span className="text-[#A68C41] font-bold">Hassan Hussain</span>. Contact me at <a href="mailto:hassanihussain1998@gmail.com" className="underline hover:text-[#9B2740] transition-colors">hassanihussain1998@gmail.com</a>.
+            {t.developedBy} <span className="text-[#A68C41] font-bold">Hassan Hussain</span>. {t.contactMe} <a href="mailto:hassanihussain1998@gmail.com" className="underline hover:text-[#9B2740] transition-colors">hassanihussain1998@gmail.com</a>.
           </div>
           <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-[#A68C41] font-mono font-bold uppercase tracking-wider">
             <a href="https://www.linkedin.com/in/hassan-hussain-3b840429a/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">LinkedIn</a>
             <span className="text-gray-600">|</span>
-            <a href="https://hihassan1998.github.io/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Portfolio</a>
+            <a href="https://hihassan1998.github.io/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">{t.portfolio}</a>
             <span className="text-gray-600">|</span>
-            <a href="https://github.com/hihassan1998/ai-business-discovery-assistant" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Source Code</a>
+            <a href="https://github.com/hihassan1998/ai-business-discovery-assistant" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">{t.sourceCode}</a>
           </div>
         </div>
       </footer>
