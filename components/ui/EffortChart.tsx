@@ -1,3 +1,6 @@
+// EffortChart.tsx
+// Renders the project scope effort distribution utilizing Chart.js Doughnut layout
+
 'use client';
 
 import React from 'react';

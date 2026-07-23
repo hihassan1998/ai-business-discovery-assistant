@@ -1,23 +1,39 @@
 # 🌟 SagaDiscovery: AI Business Discovery Assistant
 
-A premium, production-ready SaaS prototype that turns raw client conversations into structured software blueprints. SagaDiscovery acts as an AI-powered Junior Business Analyst, automating up to 40% of the manual requirement gathering phase for software consultants.
+[![Run Tests](https://github.com/hihassan1998/ai-business-discovery-assistant/actions/workflows/test.yml/badge.svg)](https://github.com/hihassan1998/ai-business-discovery-assistant/actions/workflows/test.yml)
+
+A premium, production-ready SaaS prototype that turns raw client conversations into structured software blueprints. SagaDiscovery acts as a neutral AI assistant that bridges the gap between business stakeholders and technical teams during project discovery.
 
 ---
 
-## 🎨 Brand Identity (Consid-Aligned)
-- **Primary Burgundy:** `#9B2740`
-- **Deep Rosewood:** `#40252F`
-- **Gold Accent:** `#A68C41`
-- **Clean Slate:** `#1E293B`
+## 📖 Product Philosophy
+
+### 1. What Problem I Saw
+> *"Business stakeholders and technical teams struggle to communicate effectively during project discovery. Non-technical people describe what they want, while technical people need requirements. This leads to misunderstandings, rework, and failed projects."*
+
+### 2. What My Fix Does
+> *"SagaDiscovery acts as a neutral AI assistant that bridges this gap. It conducts a structured discovery conversation with the stakeholder, then translates their responses into technical requirements, user stories, and project estimates that developers can act on."*
+
+### 3. Why AI Is the Right Tool
+> *"This is a non-deterministic problem. Every project, stakeholder, and domain is different. Generative AI is uniquely suited to handle this variability — it can adapt its questions to any industry, interpret ambiguous responses, and generate structured output from unstructured conversation."*
 
 ---
 
 ## 🚀 Key Features
-- **Interactive BA Chat:** Simulated live consulting session prompting clients on industry challenges, integrations, and scopes.
-- **Instant Scoping Reports:** Generates structured client briefs including customer overview, pain points, functional requirements, and user stories.
+- **Interactive BA Chat:** Guided live consulting session prompting clients on industry challenges, integrations, and scopes.
+- **Multilingual Support:** Dynamic Swedish (default) and English translation toggle. The AI automatically detects and matches the client's language in both conversation and generated specifications.
+- **Instant Scoping Reports:** Generates structured project briefs including customer overview, pain points, functional requirements, and user stories.
 - **Interactive Effort Charts:** Renders a responsive `Chart.js` Doughnut chart showcasing frontend, backend, design, testing, and management effort allocations.
 - **Human-in-the-Loop Refinements:** Allows consultants to manually edit and polish any generated card segment directly on-screen before delivering.
 - **Success Handoff Triggers:** Mock triggers to deliver final briefs instantly to engineering teams.
+
+---
+
+## 🎨 Brand Identity
+- **Primary Burgundy:** `#9B2740`
+- **Deep Rosewood:** `#40252F`
+- **Gold Accent:** `#A68C41`
+- **Clean Slate:** `#1E293B`
 
 ---
 
@@ -27,6 +43,7 @@ A premium, production-ready SaaS prototype that turns raw client conversations i
 - **Styling:** Tailwind CSS
 - **API integrations:** OpenAI (`gpt-4o-mini`)
 - **Visuals:** Chart.js & React-Chartjs-2
+- **Testing:** Jest, React Testing Library, and Supertest
 
 ---
 
@@ -55,7 +72,7 @@ OPENAI_API_KEY=your-openai-api-key-here
 
 ### 3. Install Dependencies
 ```bash
-npm install
+npm install --legacy-peer-deps
 ```
 
 ### 4. Run Development Server
@@ -63,6 +80,20 @@ npm install
 npm run dev
 ```
 Open [http://localhost:3000](http://localhost:3000) to view the application.
+
+---
+
+## 🧪 Testing Suite
+
+Run the unit and integration test suites:
+
+```bash
+# Run all unit tests
+npm test
+
+# Run integration tests specifically
+npm run test:integration
+```
 
 ---
 
@@ -76,7 +107,7 @@ To deploy SagaDiscovery to production on Vercel:
 2. **Connect to Vercel:**
    - Log into the [Vercel Dashboard](https://vercel.com).
    - Click **Add New...** -> **Project**.
-   - Import your `ai-business-discovery-assistant` GitHub repository.
+   - Import your GitHub repository.
 
 3. **Configure Environment Variables:**
    - Expand the **Environment Variables** section.
