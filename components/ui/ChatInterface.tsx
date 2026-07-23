@@ -1,7 +1,12 @@
+// ChatInterface.tsx
+// Handles user input, sends messages to the AI, and manages conversation state
+
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
 import { ChatMessage } from './ChatMessage';
+import { useLanguage } from '@/context/LanguageContext';
+import { translations } from '@/lib/translations';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -21,6 +26,9 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
   onGenerateReport,
   isGeneratingReport,
 }) => {
+  const { language } = useLanguage();
+  const t = translations[language];
+
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const chatEndRef = useRef<HTMLDivElement>(null);
@@ -67,7 +75,9 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
         ...prev,
         {
           role: 'assistant',
-          content: 'Sorry, I encountered an error. Could you please try repeating that?',
+          content: language === 'sv' 
+            ? 'Tyvärr uppstod ett fel. Kan du försöka igen?' 
+            : 'Sorry, I encountered an error. Could you please try repeating that?',
         },
       ]);
     } finally {
@@ -75,8 +85,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
     }
   };
 
-  // Determine if there are at least 5 exchanges (5 user messages or 5 total messages)
-  // Let's allow generating after 5 total messages to match "5+ exchanges" (or 5 messages).
+  // Determine if there are at least 5 exchanges to enable report generation
   const canGenerate = messages.length >= 5;
 
   return (
@@ -86,12 +95,12 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
         <div className="flex items-center space-x-3">
           <div className="w-3 h-3 bg-[#A68C41] rounded-full animate-ping" />
           <div>
-            <h2 className="font-bold text-base tracking-wide">AI Discovery Session</h2>
-            <p className="text-xs text-gray-300">Live consultation with Junior BA</p>
+            <h2 className="font-bold text-base tracking-wide">{t.sessionHeader}</h2>
+            <p className="text-xs text-gray-300">{t.liveBA}</p>
           </div>
         </div>
         <span className="text-xs px-2.5 py-1 bg-[#9B2740]/40 rounded-full font-semibold border border-[#9B2740]/60 text-gray-200">
-          Consid Partner
+          {t.brandSubtitle}
         </span>
       </div>
 
@@ -126,11 +135,11 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                 </svg>
-                <span>Analyzing Conversations & Generating Report...</span>
+                <span>{t.generatingReport}</span>
               </>
             ) : (
               <>
-                <span>⚡ Generate Discovery Report</span>
+                <span>{t.generateReport}</span>
               </>
             )}
           </button>
@@ -142,7 +151,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
             value={input}
             onChange={(e) => setInput(e.target.value)}
             disabled={isLoading || isGeneratingReport}
-            placeholder="Type your response here..."
+            placeholder={t.inputPlaceholder}
             className="flex-1 bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm text-[#1E293B] focus:outline-none focus:ring-2 focus:ring-[#9B2740] focus:border-transparent transition-all duration-200 disabled:opacity-50"
           />
           <button

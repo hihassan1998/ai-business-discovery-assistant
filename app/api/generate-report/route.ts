@@ -1,3 +1,6 @@
+// api/generate-report/route.ts
+// Secure API route with token limits, timeout protection, and input validation
+
 import { NextRequest, NextResponse } from 'next/server';
 import { openai } from '@/lib/openai-client';
 import { REPORT_SYSTEM_PROMPT, getReportUserPrompt, DISCOVERY_SYSTEM_PROMPT } from '@/lib/prompts';
@@ -28,7 +31,7 @@ export async function POST(req: NextRequest) {
     const timeoutId = setTimeout(() => controller.abort(), 25000);
 
     if (mode === 'chat') {
-      // Chat mode: return next question
+      // Chat mode: returns the next question dynamically matching user's language
       const response = await openai.chat.completions.create(
         {
           model: 'gpt-4o-mini',
@@ -51,7 +54,7 @@ export async function POST(req: NextRequest) {
       clearTimeout(timeoutId);
       return NextResponse.json({ reply: response.choices[0].message.content || '' });
     } else {
-      // Report mode: generate JSON report
+      // Report mode: parses conversation and generates structured JSON project brief matching user's language
       const formattedTranscript = messages
         .map((m: any) => `${m.role === 'user' ? 'Customer (User)' : 'Consultant (AI)'}: ${m.content}`)
         .join('\n');

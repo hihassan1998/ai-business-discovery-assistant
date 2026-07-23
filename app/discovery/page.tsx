@@ -1,24 +1,58 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChatInterface } from '@/components/ui/ChatInterface';
 import { ReportView } from '@/components/ui/ReportView';
 import { ReportData } from '@/types';
 import Link from 'next/link';
+import { useLanguage } from '@/context/LanguageContext';
+import { translations } from '@/lib/translations';
+import { LanguageToggle } from '@/components/ui/LanguageToggle';
 
 interface Message {
   role: 'user' | 'assistant';
   content: string;
 }
 
+// DiscoveryPage handles the side-by-side Chat and ReportView layout with multilingual support.
 export default function DiscoveryPage() {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      role: 'assistant',
-      content:
-        "Hello! I'm your AI Business Discovery Assistant. Let's design your next application together. To start, what industry is your business in, and what is the main business challenge you're looking to solve?",
-    },
-  ]);
+  const { language } = useLanguage();
+  const t = translations[language];
+
+  // Set first message based on current language
+  const [messages, setMessages] = useState<Message[]>([]);
+
+  // Effect to initialize first message on mount and language change if conversation is empty
+  useEffect(() => {
+    if (messages.length === 0) {
+      setMessages([
+        {
+          role: 'assistant',
+          content:
+            language === 'sv'
+              ? 'Hej! Jag är din AI-kravanalytiker. Låt oss designa din nästa applikation tillsammans. För att starta, vilken bransch är ditt företag verksamt inom, och vad är det primära problemet du vill lösa?'
+              : "Hello! I'm your AI Business Discovery Assistant. Let's design your next application together. To start, what industry is your business in, and what is the main business challenge you're looking to solve?",
+        },
+      ]);
+    } else {
+      // Dynamic translation of first message if no user interactions occurred yet
+      setMessages((prev) => {
+        if (prev.length === 1 && prev[0].role === 'assistant') {
+          return [
+            {
+              role: 'assistant',
+              content:
+                language === 'sv'
+                  ? 'Hej! Jag är din AI-kravanalytiker. Låt oss designa din nästa applikation tillsammans. För att starta, vilken bransch är ditt företag verksamt inom, och vad är det primära problemet du vill lösa?'
+                  : "Hello! I'm your AI Business Discovery Assistant. Let's design your next application together. To start, what industry is your business in, and what is the main business challenge you're looking to solve?",
+            },
+          ];
+        }
+        return prev;
+      });
+    }
+  }, [language]);
+
   const [reportData, setReportData] = useState<ReportData | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -46,7 +80,12 @@ export default function DiscoveryPage() {
       }
     } catch (err: any) {
       console.error(err);
-      setError(err.message || 'An error occurred while generating the report. Please try again.');
+      setError(
+        err.message ||
+          (language === 'sv'
+            ? 'Ett fel uppstod när rapporten skulle skapas. Försök igen.'
+            : 'An error occurred while generating the report. Please try again.')
+      );
     } finally {
       setIsGenerating(false);
     }
@@ -61,19 +100,19 @@ export default function DiscoveryPage() {
       {/* Navbar / Header */}
       <nav className="bg-[#40252F] text-white py-4 px-6 border-b border-[#9B2740]/30 sticky top-0 z-40 shadow-sm">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <Link href="/" className="flex items-center space-x-2 group">
-            <span className="text-xl font-black text-[#A68C41] tracking-wider group-hover:text-white transition-all">
-              CONSID
-            </span>
-            <span className="text-xs text-gray-300 font-semibold border-l border-gray-500 pl-2">
-              SagaDiscovery
-            </span>
-          </Link>
+          <div className="flex items-center space-x-4">
+            <Link href="/" className="flex items-center space-x-2 group">
+              <span className="text-xl font-black text-[#A68C41] tracking-wider group-hover:text-white transition-all">
+                SAGADISCOVERY
+              </span>
+            </Link>
+            <LanguageToggle />
+          </div>
           <Link
             href="/"
             className="text-xs font-semibold px-4 py-2 border border-gray-400 rounded-full hover:bg-white hover:text-[#40252F] transition-all"
           >
-            ← Back to Home
+            {t.backToHome}
           </Link>
         </div>
       </nav>
@@ -106,10 +145,10 @@ export default function DiscoveryPage() {
                 <div>
                   <div className="flex justify-between items-center mb-6">
                     <h2 className="text-xl font-extrabold text-[#40252F] tracking-wide">
-                      Generated Project Brief
+                      {t.briefHeader}
                     </h2>
                     <span className="bg-[#A68C41]/20 border border-[#A68C41] text-[#A68C41] text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">
-                      Draft
+                      {t.draft}
                     </span>
                   </div>
                   <ReportView data={reportData} onUpdate={handleUpdateReport} />
@@ -119,22 +158,22 @@ export default function DiscoveryPage() {
                   <div className="w-16 h-16 bg-[#F3F0F1] rounded-full flex items-center justify-center text-2xl">
                     🗒️
                   </div>
-                  <h3 className="font-bold text-lg text-[#40252F]">No Report Generated Yet</h3>
+                  <h3 className="font-bold text-lg text-[#40252F]">{t.noReportTitle}</h3>
                   <p className="text-sm text-gray-500 max-w-[280px]">
-                    Complete at least 5 messages with our assistant to unlock the ⚡ Generate Report button.
+                    {t.noReportText}
                   </p>
                   <div className="pt-4 w-full border-t border-gray-100 flex flex-col space-y-2 text-left text-xs text-gray-500">
                     <div className="flex items-center space-x-2">
                       <span className="text-[#A68C41]">✓</span>
-                      <span>Analyzes client requirements</span>
+                      <span>{language === 'sv' ? 'Analyserar kundkrav' : 'Analyzes client requirements'}</span>
                     </div>
                     <div className="flex items-center space-x-2">
                       <span className="text-[#A68C41]">✓</span>
-                      <span>Builds backlog & user stories</span>
+                      <span>{language === 'sv' ? 'Bygger backlog & user stories' : 'Builds backlog & user stories'}</span>
                     </div>
                     <div className="flex items-center space-x-2">
                       <span className="text-[#A68C41]">✓</span>
-                      <span>Provides detailed effort chart</span>
+                      <span>{language === 'sv' ? 'Levererar detaljerade projektestimat' : 'Provides detailed effort chart'}</span>
                     </div>
                   </div>
                 </div>

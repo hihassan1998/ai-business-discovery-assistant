@@ -1,8 +1,13 @@
+// ReportView.tsx
+// Displays the generated report with editable sections and effort chart
+
 'use client';
 
 import React, { useState } from 'react';
 import { ReportData } from '@/types';
 import { EffortChart } from './EffortChart';
+import { useLanguage } from '@/context/LanguageContext';
+import { translations } from '@/lib/translations';
 
 interface ReportViewProps {
   data: ReportData;
@@ -10,6 +15,9 @@ interface ReportViewProps {
 }
 
 export const ReportView: React.FC<ReportViewProps> = ({ data, onUpdate }) => {
+  const { language } = useLanguage();
+  const t = translations[language];
+
   const [editingField, setEditingField] = useState<string | null>(null);
   const [editValues, setEditValues] = useState<any>({});
   const [isSending, setIsSending] = useState(false);
@@ -137,15 +145,15 @@ export const ReportView: React.FC<ReportViewProps> = ({ data, onUpdate }) => {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
           <div>
-            <p className="font-bold text-sm">Success!</p>
-            <p className="text-xs text-gray-300">Report delivered to consultant@firm.com (Demo)</p>
+            <p className="font-bold text-sm">{t.successTitle}</p>
+            <p className="text-xs text-gray-300">{t.successToast}</p>
           </div>
         </div>
       )}
 
       {/* Customer Overview */}
       {renderSectionCard(
-        'Customer Overview',
+        t.customerOverview,
         'customerOverview',
         <svg className="w-5 h-5 text-[#A68C41]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>,
         <p className="text-[#1E293B] text-sm leading-relaxed">{data.customerOverview}</p>,
@@ -158,7 +166,7 @@ export const ReportView: React.FC<ReportViewProps> = ({ data, onUpdate }) => {
 
       {/* Business Problems */}
       {renderSectionCard(
-        'Business Problems',
+        t.businessProblems,
         'businessProblems',
         <svg className="w-5 h-5 text-[#A68C41]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>,
         <ul className="list-disc pl-5 space-y-2 text-[#1E293B] text-sm">
@@ -187,14 +195,14 @@ export const ReportView: React.FC<ReportViewProps> = ({ data, onUpdate }) => {
             onClick={() => addArrayElement('businessProblems')}
             className="text-[#9B2740] hover:text-[#40252F] text-xs font-bold flex items-center space-x-1 mt-1"
           >
-            <span>+ Add Problem</span>
+            <span>{t.addProblem}</span>
           </button>
         </div>
       )}
 
       {/* Pain Points */}
       {renderSectionCard(
-        'Identified Pain Points',
+        t.painPoints,
         'painPoints',
         <svg className="w-5 h-5 text-[#A68C41]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>,
         <ul className="list-disc pl-5 space-y-2 text-[#1E293B] text-sm">
@@ -223,14 +231,14 @@ export const ReportView: React.FC<ReportViewProps> = ({ data, onUpdate }) => {
             onClick={() => addArrayElement('painPoints')}
             className="text-[#9B2740] hover:text-[#40252F] text-xs font-bold flex items-center space-x-1 mt-1"
           >
-            <span>+ Add Pain Point</span>
+            <span>{t.addPainPoint}</span>
           </button>
         </div>
       )}
 
       {/* Solution Proposal */}
       {renderSectionCard(
-        'Proposed Solution',
+        t.solutionProposal,
         'solutionProposal',
         <svg className="w-5 h-5 text-[#A68C41]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>,
         <p className="text-[#1E293B] text-sm leading-relaxed">{data.solutionProposal}</p>,
@@ -243,7 +251,7 @@ export const ReportView: React.FC<ReportViewProps> = ({ data, onUpdate }) => {
 
       {/* Functional Requirements */}
       {renderSectionCard(
-        'Functional Requirements',
+        t.functionalRequirements,
         'functionalRequirements',
         <svg className="w-5 h-5 text-[#A68C41]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>,
         <ul className="list-disc pl-5 space-y-2 text-[#1E293B] text-sm">
@@ -272,14 +280,14 @@ export const ReportView: React.FC<ReportViewProps> = ({ data, onUpdate }) => {
             onClick={() => addArrayElement('functionalRequirements')}
             className="text-[#9B2740] hover:text-[#40252F] text-xs font-bold flex items-center space-x-1 mt-1"
           >
-            <span>+ Add Requirement</span>
+            <span>{t.addRequirement}</span>
           </button>
         </div>
       )}
 
       {/* User Stories */}
       {renderSectionCard(
-        'User Stories',
+        t.userStories,
         'userStories',
         <svg className="w-5 h-5 text-[#A68C41]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>,
         <ul className="list-disc pl-5 space-y-2 text-[#1E293B] text-sm">
@@ -308,14 +316,14 @@ export const ReportView: React.FC<ReportViewProps> = ({ data, onUpdate }) => {
             onClick={() => addArrayElement('userStories')}
             className="text-[#9B2740] hover:text-[#40252F] text-xs font-bold flex items-center space-x-1 mt-1"
           >
-            <span>+ Add Story</span>
+            <span>{t.addStory}</span>
           </button>
         </div>
       )}
 
       {/* Technical Architecture */}
       {renderSectionCard(
-        'Technical Architecture',
+        t.technicalArchitecture,
         'technicalArchitecture',
         <svg className="w-5 h-5 text-[#A68C41]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>,
         <p className="text-[#1E293B] text-sm leading-relaxed">{data.technicalArchitecture}</p>,
@@ -333,7 +341,7 @@ export const ReportView: React.FC<ReportViewProps> = ({ data, onUpdate }) => {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 3.055A9.003 9.003 0 1020.945 13H11V3.055z" />
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
           </svg>
-          <span>Effort Estimation & Scope</span>
+          <span>{t.effortEstimation}</span>
         </div>
         <div className="flex justify-center max-w-[280px] mx-auto py-2">
           <EffortChart scopeEstimate={data.scopeEstimate} />
@@ -352,12 +360,12 @@ export const ReportView: React.FC<ReportViewProps> = ({ data, onUpdate }) => {
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
             </svg>
-            <span>Delivering Report...</span>
+            <span>{t.delivering}</span>
           </>
         ) : (
           <>
             <span className="text-xl">📨</span>
-            <span>Send to Consultant</span>
+            <span>{t.sendToConsultant}</span>
           </>
         )}
       </button>
