@@ -1,46 +1,53 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
+import { useLanguage } from '@/context/LanguageContext';
+import { translations } from '@/lib/translations';
 
+// LandingHero displays the hero section with a clean, hard-edges architectural blueprint aesthetic.
 export const LandingHero: React.FC = () => {
-  return (
-    <div className="relative overflow-hidden bg-gradient-to-br from-[#40252F] via-[#2F1620] to-[#120007] text-white py-24 md:py-32 px-6">
-      {/* Background patterns / glowing circles */}
-      <div className="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] rounded-full bg-[#9B2740]/10 blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] rounded-full bg-[#A68C41]/10 blur-[150px] pointer-events-none" />
+  const { language } = useLanguage();
+  const t = translations[language];
 
-      <div className="max-w-6xl mx-auto text-center relative z-10 space-y-8">
-        {/* Brand Tag */}
-        <div className="inline-flex items-center space-x-2 bg-white/5 border border-white/10 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider text-gray-300 backdrop-blur-md animate-pulse">
-          <span className="w-2 h-2 rounded-full bg-[#A68C41]" />
-          <span>CONSID PARTNER ECOSYSTEM</span>
+  return (
+    <div className="relative overflow-hidden bg-[#40252F] text-white border-b-4 border-[#9B2740] py-20 px-6">
+      {/* Grid overlay for technical/blueprint aesthetic */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:24px_24px]" />
+
+      <div className="max-w-6xl mx-auto relative z-10 flex flex-col items-center text-center space-y-8">
+        {/* Flat Technical Tag */}
+        <div className="inline-flex items-center space-x-2 bg-black/20 border-2 border-[#A68C41] px-4 py-1.5 rounded-none text-xs font-mono tracking-wider text-[#A68C41]">
+          <span className="w-2.5 h-2.5 bg-[#A68C41]" />
+          <span>SAGADISCOVERY v1.0.0</span>
         </div>
 
-        {/* Title */}
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-tight max-w-4xl mx-auto">
-          Turn Customer Conversations into{' '}
-          <span className="bg-gradient-to-r from-[#A68C41] via-[#E2C785] to-[#A68C41] bg-clip-text text-transparent">
-            Software Blueprints
+        {/* Hard-edged Title */}
+        <h1 className="text-4xl md:text-6xl font-black tracking-tight leading-tight max-w-4xl mx-auto uppercase">
+          {t.heroTitle}{' '}
+          <span className="bg-[#A68C41] text-[#40252F] px-4 py-1 inline-block transform -rotate-1">
+            {t.heroTitleHighlight}
           </span>
         </h1>
 
         {/* Subtext */}
-        <p className="text-base md:text-xl text-gray-300 max-w-2xl mx-auto font-medium leading-relaxed">
-          AI-powered discovery for software consultants. Accelerate requirement gathering, eliminate manual documentation, and align teams instantly.
+        <p className="text-base md:text-lg text-gray-300 max-w-2xl mx-auto font-mono leading-relaxed">
+          {t.heroSubtext}
         </p>
 
-        {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+        {/* CTA Buttons with hard borders and no blurs */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 w-full max-w-md">
           <Link
             href="/discovery"
-            className="w-full sm:w-auto bg-gradient-to-r from-[#9B2740] to-[#A68C41] hover:from-[#A68C41] hover:to-[#9B2740] text-white font-bold px-8 py-4 rounded-full shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 text-center tracking-wide"
+            className="w-full sm:w-auto bg-[#9B2740] hover:bg-[#A68C41] hover:text-[#40252F] text-white font-bold px-8 py-4 border-2 border-white rounded-none shadow-[4px_4px_0px_0px_#FFFFFF] hover:shadow-none active:translate-x-1 active:translate-y-1 transition-all duration-150 text-center tracking-wider uppercase text-sm"
           >
-            Start Discovery Session
+            {t.startDiscovery}
           </Link>
           <a
-            href="#features"
-            className="w-full sm:w-auto bg-white/5 border border-white/10 hover:bg-white/10 text-white font-bold px-8 py-4 rounded-full transition-all duration-200 text-center tracking-wide backdrop-blur-md"
+            href="#explanations"
+            className="w-full sm:w-auto bg-transparent border-2 border-gray-400 hover:border-white text-white font-bold px-8 py-4 rounded-none transition-all duration-150 text-center tracking-wider uppercase text-sm"
           >
-            Learn More
+            {t.learnMore}
           </a>
         </div>
       </div>

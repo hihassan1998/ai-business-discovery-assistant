@@ -217,3 +217,16 @@ CI/CD	Add GitHub Actions workflow
 Code comments	Add short comments throughout codebase
 README	Update with new content
 Everything else	Keep exactly as is
+
+## Summary of Name Change
+
+| Aspect | Old Name | New Name |
+|--------|----------|----------|
+| App Name | AnvänderSaga | **SagaDiscovery** |
+| Folder name | `anvandersaga/` | `SagaDiscovery/` |
+| Landing page copy | "AnvänderSaga acts as..." | **"SagaDiscovery acts as..."** |
+| README | AnvänderSaga | **SagaDiscovery** |
+| Everything else | Same | Same |
+
+**The short prompt for Antigravity2.0:**
+> *"Read UPDATE_SPEC.md. Apply all changes to the existing SagaDiscovery codebase. Keep all existing functionality. Commit after each milestone. Do not break anything that already works."*
